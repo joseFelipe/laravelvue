@@ -64,7 +64,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <router-link to="/dashboard" class="nav-link">
+            <router-link to="/dashboard" class="nav-link" active-class="active" exact>
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Dashboard</p>
             </router-link>
@@ -102,7 +102,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <router-link to="/profile" class="nav-link">
+          <router-link to="/profile" class="nav-link" active-class="active" exact>
               <i class="nav-icon fas fa-user-alt"></i>
               <p>Perfil</p>
             </router-link>
