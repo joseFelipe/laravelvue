@@ -77,16 +77,16 @@
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
+                            <ul class="nav nav-treeview" active-class="active" exact>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Active Page</p>
-                                    </a>
+                                    <router-link to="/users" class="nav-link" active-class="active" exact>
+                                        <i class="fas fa-users nav-icon"></i>
+                                        <p>Usuários</p>
+                                    </router-link>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fa fa-circle nav-icon"></i>
                                         <p>Inactive Page</p>
                                     </a>
                                 </li>
