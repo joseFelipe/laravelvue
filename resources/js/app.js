@@ -3,6 +3,7 @@ require("./bootstrap");
 window.Vue = require("vue");
 import Moment from "moment";
 import { Form, HasError, AlertError } from "vform";
+import VueProgressBar from "vue-progressbar";
 
 window.Form = Form;
 
@@ -12,6 +13,12 @@ Vue.component(AlertError.name, AlertError);
 import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
+
+Vue.use(VueProgressBar, {
+    color: "rgb(143, 255, 199)",
+    failedColor: "red",
+    height: "2px"
+});
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))

@@ -202,16 +202,20 @@ export default {
 
     methods: {
         loadUsers() {
+            this.$Progress.start();
             axios.get("api/user").then(({ data }) => (this.users = data.data));
         },
         createUser() {
-            console.log("sdfadf");
+            this.$Progress.start();
             this.form.post("/api/user");
+            this.$Progress.finish();
         }
     },
 
     mounted() {
+        this.$Progress.start();
         this.loadUsers();
+        this.$Progress.finish();
         console.log("Component mounted.");
     }
 };
