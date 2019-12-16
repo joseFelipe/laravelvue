@@ -4,7 +4,9 @@ window.Vue = require("vue");
 import Moment from "moment";
 import { Form, HasError, AlertError } from "vform";
 import VueProgressBar from "vue-progressbar";
+import Swal from "sweetalert2";
 
+window.swal = Swal;
 window.Form = Form;
 
 Vue.component(HasError.name, HasError);
@@ -19,6 +21,20 @@ Vue.use(VueProgressBar, {
     failedColor: "red",
     height: "2px"
 });
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    onOpen: toast => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+    }
+});
+
+window.Toast = Toast;
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))

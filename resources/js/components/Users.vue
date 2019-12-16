@@ -209,6 +209,13 @@ export default {
             this.$Progress.start();
             this.form.post("/api/user");
             this.$Progress.finish();
+
+            $("#newUserModal").hide();
+
+            Toast.fire({
+                icon: "success",
+                title: "Usuário criado com sucesso"
+            });
         }
     },
 
