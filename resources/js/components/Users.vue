@@ -25,6 +25,7 @@
                                     <th>ID</th>
                                     <th>Nome</th>
                                     <th>Email</th>
+                                    <th>Data cadastro</th>
                                     <th>Tipo</th>
                                     <th>Ações</th>
                                 </tr>
@@ -35,10 +36,9 @@
                                     <td>{{ user.name }}</td>
                                     <td>{{ user.email }}</td>
                                     <td>
-                                        <span class="badge badge-danger">{{
-                                            user.type
-                                        }}</span>
+                                        {{ user.created_at | date_formatted }}
                                     </td>
+                                    <td>{{ user.type | upText }}</td>
 
                                     <td>
                                         <a
