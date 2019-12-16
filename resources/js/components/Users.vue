@@ -171,7 +171,7 @@
                             >
                                 Fechar
                             </button>
-                            <button type="button" class="btn btn-success">
+                            <button type="submit" class="btn btn-success">
                                 Salvar
                             </button>
                         </div>
@@ -199,6 +199,7 @@ export default {
 
     methods: {
         createUser() {
+            console.log("sdfadf");
             this.form.post("/api/user");
         }
     },
