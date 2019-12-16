@@ -76,93 +76,106 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <input
-                                v-model="form.name"
-                                type="text"
-                                name="name"
-                                placeholder="Nome"
-                                class="form-control"
-                                :class="{
-                                    'is-invalid': form.errors.has('name')
-                                }"
-                            />
-                            <has-error :form="form" field="name"></has-error>
-                        </div>
-                        <div class="form-group">
-                            <input
-                                v-model="form.email"
-                                type="text"
-                                name="email"
-                                placeholder="Email"
-                                class="form-control"
-                                :class="{
-                                    'is-invalid': form.errors.has('email')
-                                }"
-                            />
-                            <has-error :form="form" field="email"></has-error>
-                        </div>
-                        <div class="form-group">
-                            <textarea
-                                v-model="form.bio"
-                                name="bio"
-                                placeholder="Texto simples sobre o usuário..."
-                                class="form-control"
-                                :class="{
-                                    'is-invalid': form.errors.has('bio')
-                                }"
-                            />
-                            <has-error :form="form" field="bio"></has-error>
-                        </div>
-                        <div class="form-group">
-                            <select
-                                v-model="form.type"
-                                name="type"
-                                placeholder="type"
-                                class="form-control"
-                                :class="{
-                                    'is-invalid': form.errors.has('type')
-                                }"
-                            >
-                                <option value=""
-                                    >Selecione um perfil de usuário</option
+                    <form @submit.prevent="createUser">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input
+                                    v-model="form.name"
+                                    type="text"
+                                    name="name"
+                                    placeholder="Nome"
+                                    class="form-control"
+                                    :class="{
+                                        'is-invalid': form.errors.has('name')
+                                    }"
+                                />
+                                <has-error
+                                    :form="form"
+                                    field="name"
+                                ></has-error>
+                            </div>
+                            <div class="form-group">
+                                <input
+                                    v-model="form.email"
+                                    type="text"
+                                    name="email"
+                                    placeholder="Email"
+                                    class="form-control"
+                                    :class="{
+                                        'is-invalid': form.errors.has('email')
+                                    }"
+                                />
+                                <has-error
+                                    :form="form"
+                                    field="email"
+                                ></has-error>
+                            </div>
+                            <div class="form-group">
+                                <textarea
+                                    v-model="form.bio"
+                                    name="bio"
+                                    placeholder="Texto simples sobre o usuário..."
+                                    class="form-control"
+                                    :class="{
+                                        'is-invalid': form.errors.has('bio')
+                                    }"
+                                />
+                                <has-error :form="form" field="bio"></has-error>
+                            </div>
+                            <div class="form-group">
+                                <select
+                                    v-model="form.type"
+                                    name="type"
+                                    placeholder="type"
+                                    class="form-control"
+                                    :class="{
+                                        'is-invalid': form.errors.has('type')
+                                    }"
                                 >
-                                <option value="admin">Administrador</option>
-                                <option value="user">Usuário Padrão</option>
-                                <option value="author">Autor</option>
-                            </select>
-                            <has-error :form="form" field="type"></has-error>
+                                    <option value=""
+                                        >Selecione um perfil de usuário</option
+                                    >
+                                    <option value="admin">Administrador</option>
+                                    <option value="user">Usuário Padrão</option>
+                                    <option value="author">Autor</option>
+                                </select>
+                                <has-error
+                                    :form="form"
+                                    field="type"
+                                ></has-error>
+                            </div>
+                            <div class="form-group">
+                                <input
+                                    v-model="form.password"
+                                    type="password"
+                                    name="password"
+                                    placeholder="Senha"
+                                    class="form-control"
+                                    :class="{
+                                        'is-invalid': form.errors.has(
+                                            'password'
+                                        )
+                                    }"
+                                />
+                                <has-error
+                                    :form="form"
+                                    field="password"
+                                ></has-error>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input
-                                v-model="form.password"
-                                type="password"
-                                name="password"
-                                placeholder="Senha"
-                                class="form-control"
-                                :class="{
-                                    'is-invalid': form.errors.has('password')
-                                }"
-                            />
-                            <has-error
-                                :form="form"
-                                field="password"
-                            ></has-error>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-danger"
+                                data-dismiss="modal"
+                            >
+                                Fechar
+                            </button>
+                            <button type="button" class="btn btn-success">
+                                Salvar
+                            </button>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button
-                            type="button"
-                            class="btn btn-danger"
-                            data-dismiss="modal"
-                        >
-                            Fechar
-                        </button>
-                        <button type="button" class="btn btn-success">
-                            Salvar
-                        </button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -182,6 +195,12 @@ export default {
                 photo: ""
             })
         };
+    },
+
+    methods: {
+        createUser() {
+            this.form.post("/api/user");
+        }
     },
 
     mounted() {
