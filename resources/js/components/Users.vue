@@ -30,25 +30,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>183</td>
-                                    <td>John Doe</td>
-                                    <td>11-7-2014</td>
+                                <tr v-for="user in users" :key="user.id">
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.name }}</td>
+                                    <td>{{ user.email }}</td>
                                     <td>
-                                        <span class="tag tag-success"
-                                            >Approved</span
-                                        >
+                                        <span class="badge badge-danger">{{
+                                            user.type
+                                        }}</span>
                                     </td>
+
                                     <td>
                                         <a
                                             href="#"
-                                            class="btn btn-outline-primary btn-sm"
+                                            class="btn btn-primary btn-sm"
                                         >
                                             <i class="fa fa-edit"></i>
                                         </a>
                                         <a
                                             href="#"
-                                            class="btn btn-outline-danger btn-sm"
+                                            class="btn btn-danger btn-sm"
                                         >
                                             <i class="fa fa-trash"></i>
                                         </a>
@@ -186,6 +187,8 @@
 export default {
     data() {
         return {
+            users: {},
+
             form: new Form({
                 name: "",
                 email: "",
@@ -198,6 +201,9 @@ export default {
     },
 
     methods: {
+        loadUsers() {
+            axios.get("api/user").then(({ data }) => (this.users = data.data));
+        },
         createUser() {
             console.log("sdfadf");
             this.form.post("/api/user");
@@ -205,6 +211,7 @@ export default {
     },
 
     mounted() {
+        this.loadUsers();
         console.log("Component mounted.");
     }
 };
