@@ -2166,8 +2166,9 @@ __webpack_require__.r(__webpack_exports__);
     createUser: function createUser() {
       this.$Progress.start();
       this.form.post("/api/user");
+      Fire.$emit("AfterCreateUser");
       this.$Progress.finish();
-      $("#newUserModal").hide();
+      $("#newUserModal").modal("hide");
       Toast.fire({
         icon: "success",
         title: "Usuário criado com sucesso"
@@ -2175,8 +2176,13 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    var _this2 = this;
+
     this.$Progress.start();
     this.loadUsers();
+    Fire.$on("AfterCreateUser", function () {
+      _this2.loadUsers();
+    });
     this.$Progress.finish();
     console.log("Component mounted.");
   }
@@ -74876,7 +74882,8 @@ var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.mixin({
     toast.addEventListener("mouseleave", sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.resumeTimer);
   }
 });
-window.Toast = Toast; // const files = require.context('./', true, /\.vue$/i)
+window.Toast = Toast;
+window.Fire = new Vue(); // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component("example-component", __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);

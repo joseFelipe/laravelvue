@@ -208,9 +208,10 @@ export default {
         createUser() {
             this.$Progress.start();
             this.form.post("/api/user");
+            Fire.$emit("AfterCreateUser");
             this.$Progress.finish();
 
-            $("#newUserModal").hide();
+            $("#newUserModal").modal("hide");
 
             Toast.fire({
                 icon: "success",
@@ -222,6 +223,9 @@ export default {
     mounted() {
         this.$Progress.start();
         this.loadUsers();
+        Fire.$on("AfterCreateUser", () => {
+            this.loadUsers();
+        });
         this.$Progress.finish();
         console.log("Component mounted.");
     }
