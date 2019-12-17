@@ -10,8 +10,7 @@
                             <button
                                 type="button"
                                 class="btn btn-block btn-primary btn-sm"
-                                data-toggle="modal"
-                                data-target="#newUserModal"
+                                @click="newUserModal()"
                             >
                                 Adicionar usuário
                                 <i class="fa fa-user-plus"></i>
@@ -44,6 +43,7 @@
                                         <a
                                             href="#"
                                             class="btn btn-primary btn-sm"
+                                            @click="newUserModal(user)"
                                         >
                                             <i class="fa fa-edit"></i>
                                         </a>
@@ -68,7 +68,10 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Adicionar novo usuário</h5>
+                        <h5 class="modal-title">
+                            <span v-show="!editMode">Adicionar usuário</span>
+                            <span v-show="editMode">Editar usuário</span>
+                        </h5>
                         <button
                             type="button"
                             class="close"
@@ -78,7 +81,9 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form @submit.prevent="createUser">
+                    <form
+                        @submit.prevent="editMode ? updateUser() : createUser()"
+                    >
                         <div class="modal-body">
                             <div class="form-group">
                                 <input
@@ -188,9 +193,10 @@
 export default {
     data() {
         return {
+            editMode: false,
             users: {},
-
             form: new Form({
+                id: "",
                 name: "",
                 email: "",
                 password: "",
@@ -202,42 +208,25 @@ export default {
     },
 
     methods: {
-        loadUsers() {
-            axios.get("api/user").then(({ data }) => (this.users = data.data));
-        },
-        async deleteUser(id) {
+        async loadUsers() {
             this.$Progress.start();
-            swal.fire({
-                title: "Tem certeza que deseja excluir?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Sim",
-                cancelButtonText: "Cancelar"
-            })
-                .then(result => {
-                    if (result) {
-                        if (result.dismiss) {
-                            return false;
-                        }
-                    }
-
-                    await this.form.delete("/api/user/" + id).then(() => {
-                        Toast.fire({
-                            icon: "success",
-                            title: "Usuário excluído com sucesso"
-                        });
-                        Fire.$emit("UpdateUsersTable");
-                    });
-                })
-                .catch(() => {
-                    swal.fire({
-                        icon: "error",
-                        title: "Erro ao excluir o usuário"
-                    });
-                });
+            await axios
+                .get("api/user")
+                .then(({ data }) => (this.users = data.data));
+            this.$Progress.finish();
         },
+
+        newUserModal(user = null) {
+            if (user === null) {
+                this.editMode = false;
+                this.form.reset();
+            } else {
+                this.editMode = true;
+                this.form.fill(user);
+            }
+            $("#newUserModal").modal("show");
+        },
+
         async createUser() {
             this.$Progress.start();
             await this.form
@@ -250,15 +239,70 @@ export default {
                         icon: "success",
                         title: "Usuário criado com sucesso"
                     });
+                    this.$Progress.finish();
                 })
                 .catch(() => {
                     swal.fire({
                         icon: "error",
                         title: "Erro ao criar o usuário"
                     });
+                    this.$Progress.fail();
                 });
+        },
 
-            this.$Progress.finish();
+        async updateUser(id) {
+            this.$Progress.start();
+
+            this.form
+                .put("api/user/" + this.form.id)
+                .then(() => {
+                    Fire.$emit("UpdateUsersTable");
+                    $("#newUserModal").modal("hide");
+
+                    Toast.fire({
+                        icon: "success",
+                        title: "Usuário alterado com sucesso"
+                    });
+                    this.$Progress.finish();
+                })
+                .catch(() => {
+                    this.$Progress.fail();
+                });
+        },
+
+        async deleteUser(id) {
+            this.$Progress.start();
+            await swal
+                .fire({
+                    title: "Tem certeza que deseja excluir?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sim",
+                    cancelButtonText: "Cancelar"
+                })
+                .then(result => {
+                    if (result.dismiss) {
+                        return false;
+                    }
+
+                    this.form.delete("/api/user/" + id).then(() => {
+                        Toast.fire({
+                            icon: "success",
+                            title: "Usuário excluído com sucesso"
+                        });
+                        Fire.$emit("UpdateUsersTable");
+                        this.$Progress.finish();
+                    });
+                })
+                .catch(() => {
+                    swal.fire({
+                        icon: "error",
+                        title: "Erro ao excluir o usuário"
+                    });
+                    this.$Progress.fail();
+                });
         }
     },
 
