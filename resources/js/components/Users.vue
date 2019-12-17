@@ -205,18 +205,22 @@ export default {
             this.$Progress.start();
             axios.get("api/user").then(({ data }) => (this.users = data.data));
         },
-        createUser() {
+        async createUser() {
             this.$Progress.start();
-            this.form.post("/api/user");
-            Fire.$emit("AfterCreateUser");
+            await this.form
+                .post("/api/user")
+                .then(() => {
+                    Fire.$emit("AfterCreateUser");
+                    $("#newUserModal").modal("hide");
+
+                    Toast.fire({
+                        icon: "success",
+                        title: "Usuário criado com sucesso"
+                    });
+                })
+                .catch(() => {});
+
             this.$Progress.finish();
-
-            $("#newUserModal").modal("hide");
-
-            Toast.fire({
-                icon: "success",
-                title: "Usuário criado com sucesso"
-            });
         }
     },
 
