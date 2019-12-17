@@ -49,6 +49,7 @@
                                         </a>
                                         <a
                                             href="#"
+                                            @click="deleteUser(user.id)"
                                             class="btn btn-danger btn-sm"
                                         >
                                             <i class="fa fa-trash"></i>
@@ -202,15 +203,47 @@ export default {
 
     methods: {
         loadUsers() {
-            this.$Progress.start();
             axios.get("api/user").then(({ data }) => (this.users = data.data));
+        },
+        async deleteUser(id) {
+            this.$Progress.start();
+            swal.fire({
+                title: "Tem certeza que deseja excluir?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sim",
+                cancelButtonText: "Cancelar"
+            })
+                .then(result => {
+                    if (result) {
+                        if (result.dismiss) {
+                            return false;
+                        }
+                    }
+
+                    await this.form.delete("/api/user/" + id).then(() => {
+                        Toast.fire({
+                            icon: "success",
+                            title: "Usuário excluído com sucesso"
+                        });
+                        Fire.$emit("UpdateUsersTable");
+                    });
+                })
+                .catch(() => {
+                    swal.fire({
+                        icon: "error",
+                        title: "Erro ao excluir o usuário"
+                    });
+                });
         },
         async createUser() {
             this.$Progress.start();
             await this.form
                 .post("/api/user")
                 .then(() => {
-                    Fire.$emit("AfterCreateUser");
+                    Fire.$emit("UpdateUsersTable");
                     $("#newUserModal").modal("hide");
 
                     Toast.fire({
@@ -218,7 +251,12 @@ export default {
                         title: "Usuário criado com sucesso"
                     });
                 })
-                .catch(() => {});
+                .catch(() => {
+                    swal.fire({
+                        icon: "error",
+                        title: "Erro ao criar o usuário"
+                    });
+                });
 
             this.$Progress.finish();
         }
@@ -227,7 +265,7 @@ export default {
     mounted() {
         this.$Progress.start();
         this.loadUsers();
-        Fire.$on("AfterCreateUser", () => {
+        Fire.$on("UpdateUsersTable", () => {
             this.loadUsers();
         });
         this.$Progress.finish();
