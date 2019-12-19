@@ -123,25 +123,45 @@
                                     </div>
                                     <div class="form-group row">
                                         <label
-                                            for="inputName"
+                                            for="inputPhoto"
                                             class="col-sm-2 col-form-label"
                                             >Foto</label
                                         >
                                         <div class="col-sm-10">
                                             <input
-                                                name="name"
+                                                @change="updateProfileImage"
+                                                name="photo"
                                                 type="file"
                                                 class="form-control"
-                                                id="inputName"
-                                                placeholder="Nome"
+                                                id="inputPhoto"
+                                                placeholder="Foto"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label
+                                            for="inputPassword"
+                                            class="col-sm-2 col-form-label"
+                                            >Senha</label
+                                        >
+                                        <div class="col-sm-10">
+                                            <input
+                                                v-model="form.password"
+                                                type="password"
+                                                name="password"
+                                                placeholder="Senha"
+                                                class="form-control"
                                             />
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="offset-sm-2 col-sm-10">
                                             <button
+                                                @click.prevent="
+                                                    updateProfileInfo
+                                                "
                                                 type="submit"
-                                                class="btn btn-danger"
+                                                class="btn btn-primary"
                                             >
                                                 Atualizar
                                             </button>
@@ -175,6 +195,31 @@ export default {
 
     mounted() {
         console.log("Component mounted.");
+    },
+
+    methods: {
+        updateProfileInfo(e) {
+            console.log("updateProfileInfo");
+            this.form
+                .put("api/profile")
+                .then(() => {
+                    //
+                })
+                .catch({
+                    //
+                });
+        },
+
+        updateProfileImage(e) {
+            let file = e.target.files[0];
+            let reader = new FileReader();
+
+            reader.onloadend = file => {
+                this.form.photo = reader.result;
+            };
+
+            reader.readAsDataURL(file);
+        }
     },
 
     async created() {
