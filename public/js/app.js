@@ -2073,48 +2073,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2134,22 +2092,36 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updateProfileInfo: function updateProfileInfo(e) {
-      console.log("updateProfileInfo");
-      this.form.put("api/profile").then(function () {//
-      })["catch"]({//
+      var _this = this;
+
+      this.$Progress.start();
+      this.form.put("api/profile").then(function () {
+        _this.$Progress.finish();
+      })["catch"](function () {
+        _this.$Progress.fail();
       });
     },
     updateProfileImage: function updateProfileImage(e) {
-      var _this = this;
+      var _this2 = this;
 
       var file = e.target.files[0];
       var reader = new FileReader();
 
-      reader.onloadend = function (file) {
-        _this.form.photo = reader.result;
-      };
+      if (file["size"] < 2111775) {
+        reader.onloadend = function (file) {
+          _this2.form.photo = reader.result;
+        };
 
-      reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
+      } else {
+        swal.fire({
+          icon: "error",
+          title: "Erro ao carregar imagem...",
+          text: "Imagem selecionada maior que 2MB",
+          footer: "Selecione uma imagem menor que 2MB"
+        });
+        return false;
+      }
     }
   },
   created: function created() {
@@ -7892,7 +7864,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.widget-user-header {\n    background-position: center center;\n    background-size: cover;\n}\n", ""]);
+exports.push([module.i, "\n.widget-user-header {\n  background-position: center center;\n  background-size: cover;\n}\n", ""]);
 
 // exports
 
@@ -62217,11 +62189,7 @@ var render = function() {
                               }
                             }
                           },
-                          [
-                            _vm._v(
-                              "\n                                            Atualizar\n                                        "
-                            )
-                          ]
+                          [_vm._v("Atualizar")]
                         )
                       ])
                     ])
@@ -62249,15 +62217,11 @@ var staticRenderFns = [
         },
         [
           _c("h3", { staticClass: "widget-user-username text-right" }, [
-            _vm._v(
-              "\n                        Elizabeth Pierce\n                    "
-            )
+            _vm._v("Elizabeth Pierce")
           ]),
           _vm._v(" "),
           _c("h5", { staticClass: "widget-user-desc text-right" }, [
-            _vm._v(
-              "\n                        Web Designer\n                    "
-            )
+            _vm._v("Web Designer")
           ])
         ]
       ),
@@ -62274,9 +62238,7 @@ var staticRenderFns = [
           _c("div", { staticClass: "col-sm-4 border-right" }, [
             _c("div", { staticClass: "description-block" }, [
               _c("h5", { staticClass: "description-header" }, [
-                _vm._v(
-                  "\n                                    3,200\n                                "
-                )
+                _vm._v("3,200")
               ]),
               _vm._v(" "),
               _c("span", { staticClass: "description-text" }, [_vm._v("SALES")])
@@ -62286,9 +62248,7 @@ var staticRenderFns = [
           _c("div", { staticClass: "col-sm-4 border-right" }, [
             _c("div", { staticClass: "description-block" }, [
               _c("h5", { staticClass: "description-header" }, [
-                _vm._v(
-                  "\n                                    13,000\n                                "
-                )
+                _vm._v("13,000")
               ]),
               _vm._v(" "),
               _c("span", { staticClass: "description-text" }, [
