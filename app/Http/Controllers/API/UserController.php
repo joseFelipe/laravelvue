@@ -64,8 +64,7 @@ class UserController extends Controller
 
         $this->validate($request, [
             'name' => 'required|string|max:100',
-            'email' => 'required|string|email|max:100|unique:users,email,' . $user->id,
-            'password' => 'sometimes|required|min:5',
+            'email' => 'required|string|email|max:100|unique:users,email,' . $user->id
         ]);
 
         $currentPhoto = $user->photo;
@@ -76,9 +75,22 @@ class UserController extends Controller
             Image::make($request->photo)->save(public_path('img/profile/') . $name);
 
             $request->merge(['photo' => $name]);
+
+            $userCurrentPhoto = public_path("img/profile/" . $currentPhoto);
+            if (file_exists($userCurrentPhoto)) {
+                @unlink($userCurrentPhoto);
+            }
+        }
+
+        if (!empty($request->password)) {
+            $this->validate($request, [
+                'password' => 'sometimes|required|min:6'
+            ]);
+            $request->merge(['password' => Hash::make($request['password'])]);
         }
 
         $user->update($request->all());
+        return ["message" => "success"];
     }
 
     /**

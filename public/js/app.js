@@ -2108,10 +2108,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      users: {},
       form: new Form({
         id: "",
         name: "",
@@ -2163,7 +2165,6 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this3 = this;
 
-    var user;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function created$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -2175,9 +2176,6 @@ __webpack_require__.r(__webpack_exports__);
             }));
 
           case 2:
-            user = _context.sent;
-
-          case 3:
           case "end":
             return _context.stop();
         }
@@ -2200,45 +2198,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -62100,6 +62059,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("name") },
                           attrs: {
                             name: "name",
                             type: "text",
@@ -62140,6 +62100,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("email") },
                           attrs: {
                             name: "email",
                             type: "email",
@@ -62242,6 +62203,9 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("password")
+                          },
                           attrs: {
                             type: "password",
                             name: "password",
@@ -62420,9 +62384,7 @@ var render = function() {
                   }
                 },
                 [
-                  _vm._v(
-                    "\n                            Adicionar usuário\n                            "
-                  ),
+                  _vm._v("\n              Adicionar usuário\n              "),
                   _c("i", { staticClass: "fa fa-user-plus" })
                 ]
               )
@@ -62444,11 +62406,7 @@ var render = function() {
                     _c("td", [_vm._v(_vm._s(user.email))]),
                     _vm._v(" "),
                     _c("td", [
-                      _vm._v(
-                        "\n                                    " +
-                          _vm._s(_vm._f("date_formatted")(user.created_at)) +
-                          "\n                                "
-                      )
+                      _vm._v(_vm._s(_vm._f("date_formatted")(user.created_at)))
                     ]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(_vm._f("upText")(user.type)))]),
@@ -62613,7 +62571,7 @@ var render = function() {
                             "is-invalid": _vm.form.errors.has("email")
                           },
                           attrs: {
-                            type: "text",
+                            type: "email",
                             name: "email",
                             placeholder: "Email"
                           },
@@ -62844,21 +62802,13 @@ var staticRenderFns = [
           staticClass: "btn btn-danger",
           attrs: { type: "button", "data-dismiss": "modal" }
         },
-        [
-          _vm._v(
-            "\n                            Fechar\n                        "
-          )
-        ]
+        [_vm._v("Fechar")]
       ),
       _vm._v(" "),
       _c(
         "button",
         { staticClass: "btn btn-success", attrs: { type: "submit" } },
-        [
-          _vm._v(
-            "\n                            Salvar\n                        "
-          )
-        ]
+        [_vm._v("Salvar")]
       )
     ])
   }

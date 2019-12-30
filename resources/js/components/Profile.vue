@@ -60,6 +60,7 @@
                         name="name"
                         type="text"
                         class="form-control"
+                        :class="{ 'is-invalid' : form.errors.has('name') }"
                         id="inputName"
                         placeholder="Nome"
                       />
@@ -73,6 +74,7 @@
                         name="email"
                         type="email"
                         class="form-control"
+                        :class="{ 'is-invalid' : form.errors.has('email') }"
                         id="inputEmail"
                         placeholder="Email"
                       />
@@ -111,6 +113,7 @@
                         name="password"
                         placeholder="Senha"
                         class="form-control"
+                        :class="{ 'is-invalid' : form.errors.has('password') }"
                       />
                     </div>
                   </div>
@@ -139,7 +142,6 @@
 export default {
   data() {
     return {
-      users: {},
       form: new Form({
         id: "",
         name: "",
@@ -192,9 +194,7 @@ export default {
   },
 
   async created() {
-    const user = await axios
-      .get("api/profile")
-      .then(({ data }) => this.form.fill(data));
+    await axios.get("api/profile").then(({ data }) => this.form.fill(data));
   }
 };
 </script>
