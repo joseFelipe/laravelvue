@@ -11,7 +11,7 @@
       <div class="col-md-12 mt-5">
         <div class="card card-widget widget-user">
           <div class="widget-user-header text-white" style="background: url(./img/user-cover.jpg)">
-            <h3 class="widget-user-username text-right">Elizabeth Pierce</h3>
+            <h3 class="widget-user-userna`me` text-right">Test</h3>
             <h5 class="widget-user-desc text-right">Web Designer</h5>
           </div>
           <div class="widget-user-image">
@@ -90,14 +90,14 @@
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="inputPhoto" class="col-sm-2 col-form-label">Foto</label>
+                    <label for="photo" class="col-sm-2 col-form-label">Foto</label>
                     <div class="col-sm-10">
                       <input
                         @change="updateProfileImage"
                         name="photo"
                         type="file"
                         class="form-control"
-                        id="inputPhoto"
+                        id="photo"
                         placeholder="Foto"
                       />
                     </div>
@@ -139,6 +139,7 @@
 export default {
   data() {
     return {
+      users: {},
       form: new Form({
         id: "",
         name: "",
@@ -191,7 +192,9 @@ export default {
   },
 
   async created() {
-    await axios.get("api/profile").then(({ data }) => data.data);
+    const user = await axios
+      .get("api/profile")
+      .then(({ data }) => this.form.fill(data));
   }
 };
 </script>
