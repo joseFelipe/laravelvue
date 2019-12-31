@@ -15,7 +15,7 @@
             <h5 class="widget-user-desc text-right">Web Designer</h5>
           </div>
           <div class="widget-user-image">
-            <img class="img-circle" src="#" alt="User Avatar" />
+            <img class="img-circle" :src="getProfilePhoto()" alt="User Avatar" />
           </div>
           <div class="card-footer">
             <div class="row">
@@ -142,6 +142,7 @@
 export default {
   data() {
     return {
+      userPhoto: "",
       form: new Form({
         id: "",
         name: "",
@@ -171,6 +172,14 @@ export default {
         });
     },
 
+    getProfilePhoto() {
+      let photo =
+        this.form.photo.length > 200
+          ? this.form.photo
+          : "img/profile/" + this.form.photo;
+      return photo;
+    },
+
     updateProfileImage(e) {
       let file = e.target.files[0];
       let reader = new FileReader();
@@ -194,7 +203,9 @@ export default {
   },
 
   async created() {
-    await axios.get("api/profile").then(({ data }) => this.form.fill(data));
+    await axios.get("api/profile").then(({ data }) => {
+      this.form.fill(data);
+    });
   }
 };
 </script>
