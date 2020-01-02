@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <div class="content-wrapper" style="min-height: 1589.56px;">
-      <!-- Content Header (Page header) -->
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
@@ -10,10 +9,8 @@
             </div>
           </div>
         </div>
-        <!-- /.container-fluid -->
       </section>
 
-      <!-- Main content -->
       <section class="content">
         <div class="error-page">
           <h2 class="headline text-warning">404</h2>

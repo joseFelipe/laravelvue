@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <not-found v-if="!$gate.isAdmin()"></not-found>
+    <not-found v-if="!$gate.isAdminOrAuthor()"></not-found>
     <div class="row mt-5">
       <div class="col-12">
-        <div class="card" v-if="$gate.isAdmin()">
+        <div class="card" v-if="$gate.isAdminOrAuthor()">
           <div class="card-header">
             <h3 class="card-title">Usuários</h3>
 
@@ -172,7 +172,7 @@ export default {
   methods: {
     async loadUsers() {
       //Verify if the current user is admin
-      if (!this.$gate.isAdmin()) {
+      if (!this.$gate.isAdminOrAuthor()) {
         return false;
       }
       this.$Progress.start();
@@ -250,7 +250,6 @@ export default {
           if (result.dismiss) {
             return false;
           }
-          console.log("Result: " + result);
 
           this.form
             .delete("/api/user/" + id)

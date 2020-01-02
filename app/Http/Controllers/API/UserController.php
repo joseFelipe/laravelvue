@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Gate as FacadesGate;
 // import the Intervention Image Manager Class
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -25,7 +25,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::latest()->paginate(20);
+        if (FacadesGate::allows('isAdmin') || FacadesGate::allows('isAuthor')) {
+            return User::latest()->paginate(20);
+        }
     }
 
     /**
