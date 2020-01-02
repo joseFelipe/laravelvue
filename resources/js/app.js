@@ -6,6 +6,10 @@ import { Form, HasError, AlertError } from "vform";
 import VueProgressBar from "vue-progressbar";
 import Swal from "sweetalert2";
 
+import Gate from "./components/Gate";
+
+Vue.prototype.$gate = new Gate(window.user);
+
 window.swal = Swal;
 window.Form = Form;
 

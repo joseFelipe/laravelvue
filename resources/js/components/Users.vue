@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="$gate.isAdmin()">
     <div class="row mt-5">
       <div class="col-12">
         <div class="card">
@@ -170,6 +170,10 @@ export default {
 
   methods: {
     async loadUsers() {
+      //Verify if the current user is admin
+      if (!this.$gate.isAdmin()) {
+        return false;
+      }
       this.$Progress.start();
       await axios.get("api/user").then(({ data }) => (this.users = data.data));
       this.$Progress.finish();
@@ -245,22 +249,26 @@ export default {
           if (result.dismiss) {
             return false;
           }
+          console.log("Result: " + result);
 
-          this.form.delete("/api/user/" + id).then(() => {
-            Toast.fire({
-              icon: "success",
-              title: "Usuário excluído com sucesso"
+          this.form
+            .delete("/api/user/" + id)
+            .then(() => {
+              Toast.fire({
+                icon: "success",
+                title: "Usuário excluído com sucesso"
+              });
+              Fire.$emit("UpdateUsersTable");
+              this.$Progress.finish();
+            })
+            .catch(e => {
+              swal.fire({
+                icon: "error",
+                title: "Erro ao excluir o usuário",
+                text: "Você não possui permissão para exluir usuários"
+              });
+              this.$Progress.fail();
             });
-            Fire.$emit("UpdateUsersTable");
-            this.$Progress.finish();
-          });
-        })
-        .catch(() => {
-          swal.fire({
-            icon: "error",
-            title: "Erro ao excluir o usuário"
-          });
-          this.$Progress.fail();
         });
     }
   },
