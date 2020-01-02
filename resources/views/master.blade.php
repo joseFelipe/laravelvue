@@ -85,24 +85,9 @@
                                         <p>Usuários</p>
                                     </router-link>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="fa fa-circle nav-icon"></i>
-                                        <p>Inactive Page</p>
-                                    </a>
-                                </li>
                             </ul>
                         </li>
                         @endcan
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Simple Link
-                                    <span class="right badge badge-danger">New</span>
-                                </p>
-                            </a>
-                        </li>
                         <li class="nav-item">
                             <router-link to="/profile" class="nav-link" active-class="active" exact>
                                 <i class="nav-icon fas fa-user-alt"></i>

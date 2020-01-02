@@ -1,8 +1,9 @@
 <template>
-  <div class="container" v-if="$gate.isAdmin()">
+  <div class="container">
+    <not-found v-if="!$gate.isAdmin()"></not-found>
     <div class="row mt-5">
       <div class="col-12">
-        <div class="card">
+        <div class="card" v-if="$gate.isAdmin()">
           <div class="card-header">
             <h3 class="card-title">Usuários</h3>
 
