@@ -2,7 +2,7 @@
 
 <i>It's just like any other Laravel project. Basically here is how you use it for yourself. (it's not completed yet)</i>
 
-<b>Clone the repo git clone https://github.com/Hujjat/laravStart.git</b>
+<b>Clone the repo git clone https://github.com/joseFelipe/laravelvue</b>
 
 <ol>
     <li>cd to project folder.</li>
