@@ -2477,29 +2477,54 @@ __webpack_require__.r(__webpack_exports__);
     loadUsers: function loadUsers() {
       var _this2 = this;
 
+      var search,
+          _args = arguments;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function loadUsers$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              search = _args.length > 0 && _args[0] !== undefined ? _args[0] : false;
+
               if (this.$gate.isAdminOrAuthor()) {
-                _context.next = 2;
+                _context.next = 3;
                 break;
               }
 
               return _context.abrupt("return", false);
 
-            case 2:
+            case 3:
               this.$Progress.start();
-              _context.next = 5;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.get("api/user").then(function (_ref) {
+
+              if (!search) {
+                _context.next = 10;
+                break;
+              }
+
+              _context.next = 7;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.get("api/findUser?q=" + this.$parent.search).then(function (_ref) {
                 var data = _ref.data;
                 return _this2.users = data;
               }));
 
-            case 5:
+            case 7:
+              console.log("loadUsers Search: " + this.$parent.search);
+              _context.next = 13;
+              break;
+
+            case 10:
+              _context.next = 12;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.get("api/user").then(function (_ref2) {
+                var data = _ref2.data;
+                return _this2.users = data;
+              }));
+
+            case 12:
+              console.log("loadUsers");
+
+            case 13:
               this.$Progress.finish();
 
-            case 6:
+            case 14:
             case "end":
               return _context.stop();
           }
@@ -2634,6 +2659,9 @@ __webpack_require__.r(__webpack_exports__);
     var _this6 = this;
 
     this.$Progress.start();
+    Fire.$on("search", function () {
+      _this6.loadUsers(true);
+    });
     this.loadUsers();
     Fire.$on("UpdateUsersTable", function () {
       _this6.loadUsers();
@@ -79952,7 +79980,15 @@ Vue.component("passport-personal-access-tokens", __webpack_require__(/*! ./compo
 Vue.component("not-found", __webpack_require__(/*! ./components/NotFound.vue */ "./resources/js/components/NotFound.vue")["default"]);
 var app = new Vue({
   el: "#app",
-  router: router
+  router: router,
+  data: {
+    search: ""
+  },
+  methods: {
+    searchSomething: function searchSomething() {
+      Fire.$emit("search");
+    }
+  }
 });
 
 /***/ }),

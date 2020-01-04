@@ -23,32 +23,27 @@
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                 </li>
             </ul>
-
-            <!-- SEARCH FORM -->
-            <form class="form-inline ml-3">
+            <div class="form-line ml-3">
                 <div class="input-group input-group-sm">
-                    <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control form-control-navbar" @keyup.enter="searchSomething" v-model="search" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
                     <div class="input-group-append">
-                        <button class="btn btn-navbar" type="submit">
+                        <button class="btn btn-navbar" type="submit" @click="searchSomething">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
                 </div>
-            </form>
+            </div>
         </nav>
-        <!-- /.navbar -->
 
-        <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
+
             <a href="index3.html" class="brand-link">
                 <img src="./img/effort.png" alt="Laravel Vue Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Laravel Vue</span>
             </a>
 
-            <!-- Sidebar -->
+
             <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         <img src="./img/man.png" class="img-circle elevation-2" alt="User Image">

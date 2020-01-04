@@ -220,13 +220,25 @@ export default {
                 this.users = response.data;
             });
         },
-        async loadUsers() {
+        async loadUsers(search = false) {
             //Verify if the current user is admin
             if (!this.$gate.isAdminOrAuthor()) {
                 return false;
             }
             this.$Progress.start();
-            await axios.get("api/user").then(({ data }) => (this.users = data));
+
+            if (search) {
+                await axios
+                    .get("api/findUser?q=" + this.$parent.search)
+                    .then(({ data }) => (this.users = data));
+                console.log("loadUsers Search: " + this.$parent.search);
+            } else {
+                await axios
+                    .get("api/user")
+                    .then(({ data }) => (this.users = data));
+                console.log("loadUsers");
+            }
+
             this.$Progress.finish();
         },
 
@@ -326,7 +338,13 @@ export default {
 
     mounted() {
         this.$Progress.start();
+
+        Fire.$on("search", () => {
+            this.loadUsers(true);
+        });
+
         this.loadUsers();
+
         Fire.$on("UpdateUsersTable", () => {
             this.loadUsers();
         });

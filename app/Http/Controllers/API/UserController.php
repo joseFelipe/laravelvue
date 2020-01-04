@@ -140,4 +140,17 @@ class UserController extends Controller
 
         $user->delete();
     }
+
+    public function search(Request $request)
+    {
+        if ($search = $request->get('q')) {
+            $users = User::where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%$search%")
+                    ->orWhere('email', 'LIKE', "%$search%");
+            })->paginate(10);
+        } else {
+            $users = User::latest()->paginate(5);
+        }
+        return $users;
+    }
 }
