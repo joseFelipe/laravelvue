@@ -79983,7 +79983,10 @@ var app = new Vue({
   methods: {
     searchSomething: _.debounce(function () {
       Fire.$emit("search");
-    }, 1000)
+    }, 1000),
+    printPage: function printPage() {
+      window.print();
+    }
   }
 });
 
