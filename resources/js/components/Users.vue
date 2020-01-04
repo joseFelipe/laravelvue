@@ -231,12 +231,10 @@ export default {
                 await axios
                     .get("api/findUser?q=" + this.$parent.search)
                     .then(({ data }) => (this.users = data));
-                console.log("loadUsers Search: " + this.$parent.search);
             } else {
                 await axios
                     .get("api/user")
                     .then(({ data }) => (this.users = data));
-                console.log("loadUsers");
             }
 
             this.$Progress.finish();

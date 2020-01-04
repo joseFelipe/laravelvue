@@ -2496,7 +2496,7 @@ __webpack_require__.r(__webpack_exports__);
               this.$Progress.start();
 
               if (!search) {
-                _context.next = 10;
+                _context.next = 9;
                 break;
               }
 
@@ -2507,24 +2507,20 @@ __webpack_require__.r(__webpack_exports__);
               }));
 
             case 7:
-              console.log("loadUsers Search: " + this.$parent.search);
-              _context.next = 13;
+              _context.next = 11;
               break;
 
-            case 10:
-              _context.next = 12;
+            case 9:
+              _context.next = 11;
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.get("api/user").then(function (_ref2) {
                 var data = _ref2.data;
                 return _this2.users = data;
               }));
 
-            case 12:
-              console.log("loadUsers");
-
-            case 13:
+            case 11:
               this.$Progress.finish();
 
-            case 14:
+            case 12:
             case "end":
               return _context.stop();
           }
@@ -79985,9 +79981,9 @@ var app = new Vue({
     search: ""
   },
   methods: {
-    searchSomething: function searchSomething() {
+    searchSomething: _.debounce(function () {
       Fire.$emit("search");
-    }
+    }, 1000)
   }
 });
 

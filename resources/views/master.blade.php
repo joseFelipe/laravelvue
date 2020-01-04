@@ -25,7 +25,7 @@
             </ul>
             <div class="form-line ml-3">
                 <div class="input-group input-group-sm">
-                    <input class="form-control form-control-navbar" @keyup.enter="searchSomething" v-model="search" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
+                    <input class="form-control form-control-navbar" @keyup="searchSomething" v-model="search" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
                     <div class="input-group-append">
                         <button class="btn btn-navbar" type="submit" @click="searchSomething">
                             <i class="fas fa-search"></i>

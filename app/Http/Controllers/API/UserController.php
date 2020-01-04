@@ -149,7 +149,7 @@ class UserController extends Controller
                     ->orWhere('email', 'LIKE', "%$search%");
             })->paginate(10);
         } else {
-            $users = User::latest()->paginate(5);
+            $users = User::latest()->paginate(10);
         }
         return $users;
     }
