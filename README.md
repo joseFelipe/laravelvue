@@ -1,14 +1,15 @@
-## Install
+## Installation
 
-Installation
-It's just like any other Laravel project. Basically here is how you use it for yourself. (it's not completed yet)
+<i>It's just like any other Laravel project. Basically here is how you use it for yourself. (it's not completed yet)</i>
 
-Clone the repo git clone https://github.com/Hujjat/laravStart.git
+<b>Clone the repo git clone https://github.com/Hujjat/laravStart.git</b>
 
-cd to project folder.
-Run composer install
-Save as the .env.example to .env and set your database information
-Run php artisan key:generate to generate the app key
-Run npm install
-Run php artisan migrate
-Enjoy!
+<ol>
+    <li>cd to project folder.</li>
+    <li>Run composer install</li>
+    <li>Save as the .env.example to .env and set your database information</li>
+    <li>Run php artisan key:generate to generate the app key</li>
+    <li>Run npm install</li>
+    <li>Run php artisan migrate</li>
+</ol>
+<b><i>Enjoy!</i></b>
