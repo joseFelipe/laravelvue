@@ -10,6 +10,7 @@
     <li>Save as the .env.example to .env and set your database information</li>
     <li>Run php artisan key:generate to generate the app key</li>
     <li>Run npm install</li>
+    <li>php artisan passport:install</li>
     <li>Run php artisan migrate</li>
 </ol>
 <b><i>Enjoy!</i></b>
